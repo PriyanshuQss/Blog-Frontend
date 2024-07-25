@@ -1,0 +1,7 @@
+<div *ngFor="let blog of blogs">
+  <app-blog-detail
+    [blog]="blog"
+    (edit)="onEditBlog(blog)"
+    (delete)="onDeleteBlog(blog)"
+  ></app-blog-detail>
+</div>

@@ -1,0 +1,13 @@
+
+<div class="blog-item">
+    <div class="blog-text">{{blog?.text}}</div>
+    <div class="blog-info">
+      <span style="padding-right: 10px;">Created: {{blog?.userName}}</span>
+      <span>Created date: {{blog?.dateCreated}}</span>
+    </div>
+    <div class="blog-actions">
+      <button (click)="onEdit()">Edit</button>
+      <button (click)="onDelete()">Delete</button>
+    </div>
+  </div>
+  

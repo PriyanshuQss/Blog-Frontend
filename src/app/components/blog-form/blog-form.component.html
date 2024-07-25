@@ -1,0 +1,13 @@
+<div class="blog-form-container">
+  <form (ngSubmit)="saveBlog()">
+    <div class="form-group">
+      <label for="text">Text</label>
+      <textarea id="text" [(ngModel)]="blogCopy.text" name="text" class="form-control"></textarea>
+    </div>
+    <div class="blog-actions">
+      <button type="submit" class="btn">Save</button>
+      <button type="button" class="btn" (click)="cancelForm()">Cancel</button>
+    </div>
+  </form>
+</div>
+
