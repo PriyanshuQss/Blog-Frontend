@@ -45,12 +45,10 @@ export class AppComponent {
   saveBlog(blog: BlogModel) {
     if (this.editingBlog) {
       this.blogService.updateBlog(blog).subscribe(() => {
-        debugger
         this.loadBlogs();
       });
     } else {
       this.blogService.createBlog(blog).subscribe(() => {
-        debugger
         this.loadBlogs();
       });
     }

@@ -33,7 +33,6 @@ export class BlogFormComponent implements OnInit {
   }
 
   saveBlog(): void {
-    debugger
     if (this.blogForm.valid) {
       this.save.emit(this.blogForm.value);
     }
