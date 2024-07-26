@@ -1,13 +1,20 @@
 <div class="blog-form-container">
-  <form (ngSubmit)="saveBlog()">
+  <form [formGroup]="blogForm" (ngSubmit)="saveBlog()">
     <div class="form-group">
       <label for="text">Text</label>
-      <textarea id="text" [(ngModel)]="blogCopy.text" name="text" class="form-control"></textarea>
+      <textarea
+        id="text"
+        formControlName="text"
+        class="form-control"
+      ></textarea>
+      <div *ngIf="blogForm.controls['text'].errors && blogForm.controls['text'].touched" class="error">Text is required.
+      </div>
     </div>
-    <div class="blog-actions">
-      <button type="submit" class="btn">Save</button>
-      <button type="button" class="btn" (click)="cancelForm()">Cancel</button>
+    <div class="form-buttons">
+      <button type="submit" class="btn btn-primary">Save</button>
+      <button type="button" class="btn btn-secondary" (click)="cancelForm()">Cancel</button>
     </div>
   </form>
 </div>
+
 

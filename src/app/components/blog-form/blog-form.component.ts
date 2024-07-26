@@ -1,33 +1,45 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { BlogModel } from '../../services/blog.service';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-blog-form',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './blog-form.component.html',
   styleUrl: './blog-form.component.scss'
 })
-export class BlogFormComponent implements OnChanges {
+export class BlogFormComponent implements OnInit {
   @Input() blog: BlogModel | null = null;
   @Output() save = new EventEmitter<BlogModel>();
   @Output() cancel = new EventEmitter<void>();
 
-  blogCopy: BlogModel = { blogId: 0, text: '', userName: 'UserName', dateCreated: new Date() };
+  blogForm: FormGroup;
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['blog']) {
-      this.blogCopy = this.blog ? { ...this.blog } : { blogId: 0, text: '', userName: 'UserName', dateCreated: new Date() };
+  constructor(private fb: FormBuilder) {
+    this.blogForm = this.fb.group({
+      text: ['', [Validators.required, Validators.pattern(/^(?!\s*$).+/)]],
+      blogId: [0],
+      userName: ['UserName'],
+      dateCreated: new Date()
+    });
+  }
+
+  ngOnInit(): void {
+    if (this.blog) {
+      this.blogForm.patchValue(this.blog);
     }
   }
 
-  saveBlog() {
-    this.save.emit(this.blogCopy);
+  saveBlog(): void {
+    debugger
+    if (this.blogForm.valid) {
+      this.save.emit(this.blogForm.value);
+    }
   }
 
-  cancelForm() {
+  cancelForm(): void {
     this.cancel.emit();
   }
 }
